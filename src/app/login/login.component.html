@@ -1,0 +1,32 @@
+<div class="login-card-holder">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div>
+            <p-card header="Welcome" subheader="Please enter your login details.">
+                <ng-template pTemplate="header">
+                    <div class="logo-holder">
+                        <img alt="Card" src="assets/kb.png" class="login-logo">
+                    </div>
+                    <p-divider></p-divider>
+                </ng-template>
+                
+                <div class="p-fluid">
+                    <div class="p-field">
+                        <label for="loginId">User name</label>
+                        <input id="loginId" type="text" pInputText formControlName="loginId"> 
+                    </div>
+                    <div class="p-field">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" pInputText formControlName="password" pPassword> 
+                    </div>
+                </div>
+                <ng-template pTemplate="footer" class="login-footer">
+                    <div class="footer-buttons-holder">
+                        <button pButton pRipple type="button" label="Login" class="p-button-primary login-button" [disabled]="!loginForm.valid" type="submit"></button>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
+    </form>
+</div>
+
+<p-toast position="bottom-center" key="bc"></p-toast>
