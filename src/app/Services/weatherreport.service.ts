@@ -8,11 +8,12 @@ import {forkJoin} from 'rxjs'
   providedIn: 'root'
 })
 export class WeatherreportService {
-  domainlink = "http://api.openweathermap.org/data/2.5/";
+  domainlink = "http://api.openweathermap.org/data/2.5/"; // Domain link for API requests
   constructor(
     private _http: HttpClient
   ) { }
 
+  // This function will get the 5 europe cities weather data.
   citiesWeatherData(cities):Observable<any[]>{ 
     let city1 = this._http.get(this.domainlink+"weather?q="+cities[0]+"&appid=3d8b309701a13f65b660fa2c64cdc517");
     let city2 = this._http.get(this.domainlink+"weather?q="+cities[1]+"&appid=3d8b309701a13f65b660fa2c64cdc517");
@@ -23,11 +24,13 @@ export class WeatherreportService {
     return forkJoin(allCities);
   }
 
+  // The below function will get the 5 next days of weather data for particular city.
   getWeatherData(cityname:string):Observable<any>{ 
     return this._http.get<any[]>(this.domainlink+"forecast?q="+cityname+"&appid=3d8b309701a13f65b660fa2c64cdc517")
                       .pipe(catchError(this.handleError<any>("error found")));              
   }
 
+  // The below function used for error handle.
   handleError<T>(operation = 'operation', result?: T){
     return (error: any): Observable<T> => {
       return throwError(error.message || "server error");

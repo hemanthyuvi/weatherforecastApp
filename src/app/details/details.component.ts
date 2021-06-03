@@ -20,9 +20,11 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // reading the city name from the URL using routing.
     this._paramroute.paramMap.subscribe(params => {
       this.cityname = params.get("city");
      });
+
      this.getNextFiveDaysData();
   }
 
@@ -34,17 +36,18 @@ export class DetailsComponent implements OnInit {
         const dateTime = new Date(value.dt_txt);
         const day = dateTime.getDay();
         let weekday = getDayNames[day];
-        this.dailyWeatherReport.push({
-          weekday:weekday,
-          temperature:value.main["temp"],
-          sealevel:value.main["sea_level"]
-        })
+          this.dailyWeatherReport.push({
+            weekday:weekday,
+            temperature:value.main["temp"],
+            sealevel:value.main["sea_level"]
+          });
       });
     },(error) => {
       this._messageService.add({key: 'error', severity:'error', summary: 'Failed', detail: error});
     })
   }
 
+  // This function will filter data based on the time(9:00) and stores in the dailyData array. 
   seperateDailyData(weatherData){
     weatherData.list.map(item => {
        const dateTime = new Date(item.dt_txt);

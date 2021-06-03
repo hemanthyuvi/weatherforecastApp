@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LoginGuardGuard implements CanActivate {
   constructor(public router: Router) { }
-  canActivate(): boolean {
+  canActivate(): boolean {  
     if (localStorage.getItem('login') == "success") {
       return true;
     }else{

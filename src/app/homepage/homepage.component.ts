@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class HomepageComponent implements OnInit {
   countriesData: WeatherDetails[] = [];
-  europeCountries = ["London","Paris", "Rome", "New York", "Berlin"];
+  europeCities = ["London","Paris", "Rome", "New York", "Berlin"];
   constructor(
     private _report : WeatherreportService,
     private _messageService : MessageService,
@@ -22,13 +22,12 @@ export class HomepageComponent implements OnInit {
     this.getWeatherCitiesData();
   }
 
+  // On below we subscibe to the citiesWeatherData observable by passing citynames to get weather forecast data.
   getWeatherCitiesData(){
-    this._report.citiesWeatherData(this.europeCountries).subscribe(data => {
+    this._report.citiesWeatherData(this.europeCities).subscribe(data => {
       data.forEach(value => {
         let sunriseDate = new Date(value.sys["sunrise"]);
         let sunsetDate = new Date(value.sys["sunset"]);
-        console.log(sunriseDate);
-        console.log(sunsetDate);
         this.countriesData.push({
             name:value.name,
             temperature:value.main["temp"],
@@ -41,6 +40,7 @@ export class HomepageComponent implements OnInit {
     })
   }
 
+  // This function will redirect the user to details page.
   nextFiveDaysReport(citiname:string){
     this._route.navigate(['details', citiname]);
   }

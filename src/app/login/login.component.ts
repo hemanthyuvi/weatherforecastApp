@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     this.primengConfig.ripple = true;
   }
 
+  // The below function is validating the user credentials, if entered credentials are valid then user will redirect to homepage. if entered credentials are in-valid then user will see the login fail message. 
   onSubmit(){
     if(this.loginForm.value.loginId == "user@mobiquity.com" && this.loginForm.value.password == "user@123" ){
       localStorage.clear();
