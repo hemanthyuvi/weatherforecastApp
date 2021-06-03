@@ -1,1 +1,28 @@
-<p>details works!</p>
+<app-header></app-header>
+
+<div class="p-shadow-3 p-mt-4 main-card">
+    <div class="p-pl-5 p-mb-4 p-pr-5 sub-header">
+      <span>5 Days Weather Forecast for {{cityname}}</span>
+    </div>
+        <div class="p-d-flex p-flex-wrap p-jc-evenly add-bg ">
+            <div pRipple class="p-shadow-5 card gradient-card" *ngFor="let report of dailyWeatherReport">
+                <span>
+                    {{report.weekday}}
+                </span>
+                <div class="p-d-flex-column p-ai-center p-jc-between">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <i class="title">Temperature</i>
+                        <div class="p-d-flex p-ai-center p-jc-between">
+                            <h3>{{report.temperature}}</h3><small class="p-ml-1">&#8451;</small>
+                        </div>
+                    </div>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <i class="title">Sea Level</i>
+                        <div class="p-d-flex p-ai-center p-jc-between">
+                            <h3>{{report.sealevel}}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

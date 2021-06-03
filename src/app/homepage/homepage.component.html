@@ -1,4 +1,21 @@
 <app-header></app-header>
-<div class="p-d-flex p-shadow-1">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name"></p-dropdown>
-</div>
+<p-table [value]="countriesData" [style]="{'margin-top':'25px'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Europe cities</th>
+            <th>Temperature</th>
+            <th>Sunrise time</th>
+            <th>Sunset time</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-weather>
+        <tr>
+            <td>
+                <button pButton pRipple type="button" label="{{weather.name}}" class="p-button-info p-button-text" (click)="nextFiveDaysReport(weather.name)"></button>
+            </td>
+            <td>{{weather.temperature}} &#8451;</td>
+            <td>{{weather.sunrise | date: 'hh:mm a' }}</td>
+            <td>{{weather.sunset |  date: 'hh:mm a' }}</td>
+        </tr>
+    </ng-template>
+</p-table>

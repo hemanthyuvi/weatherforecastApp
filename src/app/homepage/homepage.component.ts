@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {City} from '../Services/models';
+import { WeatherDetails} from '../Services/models';
+import {WeatherreportService} from '../Services/weatherreport.service';
+import { MessageService } from "primeng/api";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -7,22 +10,39 @@ import {City} from '../Services/models';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-
-  cities: City[];
-
-  selectedCity: City;
-
-  constructor() { }
+  countriesData: WeatherDetails[] = [];
+  europeCountries = ["London","Paris", "Rome", "New York", "Berlin"];
+  constructor(
+    private _report : WeatherreportService,
+    private _messageService : MessageService,
+    private _route: Router
+  ) { }
 
   ngOnInit(): void {
-    this.cities = [
-      {name: 'New York', code: 'NY'},
-      {name: 'Rome', code: 'RM'},
-      {name: 'London', code: 'LDN'},
-      {name: 'Berlin', code: 'BN'},
-      {name: 'Paris', code: 'PRS'}
-  ];
-  console.log(this.selectedCity);
+    this.getWeatherCitiesData();
+  }
+
+  getWeatherCitiesData(){
+    this._report.citiesWeatherData(this.europeCountries).subscribe(data => {
+      data.forEach(value => {
+        let sunriseDate = new Date(value.sys["sunrise"]);
+        let sunsetDate = new Date(value.sys["sunset"]);
+        console.log(sunriseDate);
+        console.log(sunsetDate);
+        this.countriesData.push({
+            name:value.name,
+            temperature:value.main["temp"],
+            sunrise:sunriseDate,
+            sunset: sunsetDate,
+        });
+      }); 
+    },(error) => {
+      this._messageService.add({key: 'error', severity:'error', summary: 'Failed', detail: error});
+    })
+  }
+
+  nextFiveDaysReport(citiname:string){
+    this._route.navigate(['details', citiname]);
   }
 
 }

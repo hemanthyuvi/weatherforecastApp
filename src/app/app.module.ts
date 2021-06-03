@@ -20,6 +20,8 @@ import { MessageService } from "primeng/api";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import {DropdownModule} from 'primeng/dropdown';
+import {TableModule} from 'primeng/table';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import {DropdownModule} from 'primeng/dropdown';
     ToolbarModule,
     MenuModule,
     BrowserAnimationsModule,
-    DropdownModule
+    DropdownModule,
+    TableModule,
+    HttpClientModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]
